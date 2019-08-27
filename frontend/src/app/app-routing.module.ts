@@ -1,11 +1,22 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, ExtraOptions, Routes} from '@angular/router';
 
+const routes: Routes = [
+    {
+      path: '',
+      loadChildren: () => import('./features/feature.module')
+        .then(m => m.FeatureModule),
+    },
+    { path: '', redirectTo: 'board', pathMatch: 'full' },
+    { path: '**', redirectTo: 'board' },
+];
 
-const routes: Routes = [];
+const config: ExtraOptions = {
+    useHash: false,
+  };
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes, config)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
