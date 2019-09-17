@@ -1,11 +1,13 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AppMaterialModule } from 'src/app/app-material.module';
+
 import { 
     boardPageRoute,
     BoardPageComponent,
-    TaskListComponent
+    TaskListComponent,
+    TaskComponent
 } from '.';
 
 const ENTITY_STATES = [...boardPageRoute];
@@ -13,12 +15,13 @@ const ENTITY_STATES = [...boardPageRoute];
 @NgModule({
     imports: [
         CommonModule,
-        DragDropModule,
+        AppMaterialModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
         BoardPageComponent,
-        TaskListComponent
+        TaskListComponent,
+        TaskComponent
     ],
     entryComponents: [
         BoardPageComponent

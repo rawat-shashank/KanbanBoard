@@ -10,9 +10,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 export class TaskListComponent {
     todo = [
         'Get to work',
-        'Pick up groceries',
-        'Go home',
-        'Fall asleep'
+        'Get up',
       ];
     
       inProgress = [
