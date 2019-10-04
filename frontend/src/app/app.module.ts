@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
 import { FeatureModule } from './features/feature.module';
+import { StoreModule } from '@ngrx/store';
 
 import {
   LayoutComponent,
@@ -12,6 +13,7 @@ import {
   ErrorComponent
 }
 from './layout';
+import { appReducer } from './app.reducer';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ from './layout';
     BrowserAnimationsModule,
     AppRoutingModule,
     FeatureModule,
-    AppMaterialModule
+    AppMaterialModule,
+    StoreModule.forRoot({ui: appReducer})
   ],
   providers: [],
   bootstrap: [LayoutComponent]

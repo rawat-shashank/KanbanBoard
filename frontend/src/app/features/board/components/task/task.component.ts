@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Task } from '../../board.model';
 
 @Component({
     selector: 'app-task',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
 })
 
 export class TaskComponent {
-    
+    task : Task
+    @Input()
+    set setTaskData(input: Task) {
+        if (input) {
+            this.task = input;
+        }
+    }
 }

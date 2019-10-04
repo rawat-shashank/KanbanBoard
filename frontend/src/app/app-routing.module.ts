@@ -7,7 +7,6 @@ const routes: Routes = [
       loadChildren: () => import('./features/feature.module')
         .then(m => m.FeatureModule),
     },
-    { path: '', redirectTo: 'board', pathMatch: 'full' },
     { path: '**', redirectTo: 'board' },
 ];
 

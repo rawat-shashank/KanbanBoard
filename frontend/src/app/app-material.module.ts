@@ -9,6 +9,8 @@ import { MatListModule } from "@angular/material/list";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatCardModule } from "@angular/material/card";
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatListModule,
     MatSnackBarModule,
     MatCardModule,
-    DragDropModule
+    DragDropModule,
+    MatDialogModule
   ],
   exports: [
     MatInputModule,
@@ -35,7 +38,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatListModule,
     MatSnackBarModule,
     MatCardModule,
-    DragDropModule
+    DragDropModule,
+    MatDialogModule
   ]
 })
 export class AppMaterialModule {}
