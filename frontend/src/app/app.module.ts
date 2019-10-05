@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
 import { FeatureModule } from './features/feature.module';
 import { StoreModule } from '@ngrx/store';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {
   LayoutComponent,
@@ -25,6 +26,7 @@ import { appReducer } from './app.reducer';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
     FeatureModule,
     AppMaterialModule,

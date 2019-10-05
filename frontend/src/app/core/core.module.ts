@@ -6,9 +6,9 @@ import { RouterModule } from "@angular/router";
     RouterModule.forChild([
       {
         path: "",
-        loadChildren: () =>
-          import("./board/board.module").then(m => m.BoardModule)
+        loadChildren: () => import("./auth/auth.module").then(m => m.AuthModule)
       },
+      { path: "", redirectTo: "login", pathMatch: "full" }
     ])
   ],
   declarations: [],
@@ -16,4 +16,4 @@ import { RouterModule } from "@angular/router";
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class FeatureModule {}
+export class CoreModule {}

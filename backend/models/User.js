@@ -4,7 +4,8 @@ const db = require("../config/database");
 const User = db.define("users", {
   email: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   password: {
     type: Sequelize.STRING,

@@ -3,11 +3,16 @@ import { RouterModule, ExtraOptions, Routes} from '@angular/router';
 
 const routes: Routes = [
     {
-      path: '',
+      path: 'auth',
+      loadChildren: () => import('./core/core.module')
+        .then(m => m.CoreModule),
+    },
+    {
+      path: 'board',
       loadChildren: () => import('./features/feature.module')
         .then(m => m.FeatureModule),
     },
-    { path: '**', redirectTo: 'board' },
+    { path: '**', redirectTo: 'auth/login' },
 ];
 
 const config: ExtraOptions = {

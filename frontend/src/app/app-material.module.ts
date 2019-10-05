@@ -10,7 +10,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatCardModule } from "@angular/material/card";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -26,7 +26,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSnackBarModule,
     MatCardModule,
     DragDropModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonToggleModule
   ],
   exports: [
     MatInputModule,
@@ -39,7 +40,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSnackBarModule,
     MatCardModule,
     DragDropModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonToggleModule
   ]
 })
 export class AppMaterialModule {}
