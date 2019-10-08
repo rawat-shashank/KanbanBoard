@@ -15,11 +15,6 @@ export class AddTaskDialogComponent implements OnInit {
 
   ngOnInit() {
     this.filterData = this.data;
-    const rightMostPos = Number(this.filterData.right);
-    this.dialogRef.updatePosition({
-      top: `${this.filterData.top}px`,
-      left: `${rightMostPos}px`
-    });
   }
   onNoClick(): void {
     this.dialogRef.close();

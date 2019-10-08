@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from "@angular/core";
+import { Component } from "@angular/core";
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -16,7 +16,6 @@ import { BoardService } from '../../board.service';
   styleUrls: ["task-list.component.scss"]
 })
 export class TaskListComponent {
-  @ViewChild("filterIcon", {static: false}) filterIcon: ElementRef;
   todo: TaskList;
   inProgress: TaskList;
   done: TaskList;
@@ -48,17 +47,15 @@ export class TaskListComponent {
     }
   }
 
-  openDialog(): void {
+  openDialog(event): void {
     const filterData = {
-      top: this.filterIcon.nativeElement.getBoundingClientRect().top,
-      right: this.filterIcon.nativeElement.getBoundingClientRect().right,
       task: {}
     };
     this.dialog.closeAll();
     let dialogRef = this.dialog.open(AddTaskDialogComponent, {
-      width: "250px",
+      width: "350px",
       data: filterData,
-      hasBackdrop: false,
+      hasBackdrop: true,
       panelClass: "filter-popup"
     });
 

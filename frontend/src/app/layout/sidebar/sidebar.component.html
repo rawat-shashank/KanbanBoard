@@ -30,9 +30,12 @@
             <img src="../../../assets/images/logo.png" alt="KanbanBoard" class="logo" routerLink="/board">
           </button>
         </span>
-        <button mat-icon-button (click)="otherTheme=!otherTheme">
-          <mat-icon class="nav-icons">format_color_fill</mat-icon>
+        <button type="button" mat-icon-button (click)="otherTheme=!otherTheme">
+          <mat-icon>format_color_fill</mat-icon>
         </button>
+        <button type="button" mat-icon-button (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
       </mat-toolbar>
       <app-main></app-main>
     </mat-sidenav-content>

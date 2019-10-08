@@ -24,9 +24,9 @@ export class BoardService {
     return this.todo;
   }
   getInProgress(): TaskList {
-    return this.todo;
+    return this.inProgress;
   }
   getDone(): TaskList {
-    return this.todo;
+    return this.done;
   }
 }

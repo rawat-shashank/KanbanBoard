@@ -1,8 +1,8 @@
 <div class="example-container">
   <h2>
     <span class="list-header">To do</span>
-    <span #filterIcon>
-      <button mat-icon-button (click)="openDialog()">
+    <span #todoFilter>
+      <button mat-icon-button (click)="openDialog(todoFilter)">
         <mat-icon>add</mat-icon>
       </button>
     </span>
@@ -25,8 +25,8 @@
 <div class="example-container">
   <h2>
     <span class="list-header">In Progress</span>
-    <span #filterIcon>
-      <button mat-icon-button (click)="openDialog()">
+    <span #inProgressFilter>
+      <button mat-icon-button (click)="openDialog(inProgressFilter)">
         <mat-icon>add</mat-icon>
       </button>
     </span>
@@ -49,8 +49,8 @@
 <div class="example-container">
   <h2>
     <span class="list-header">Done</span>
-    <span #filterIcon>
-      <button mat-icon-button (click)="openDialog()">
+    <span #doneFilter>
+      <button mat-icon-button (click)="openDialog(doneFilter)">
         <mat-icon>add</mat-icon>
       </button>
     </span>

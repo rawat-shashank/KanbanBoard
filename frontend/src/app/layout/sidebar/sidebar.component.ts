@@ -16,12 +16,12 @@ export class LayoutComponent implements OnInit{
   isAuthenticated$: Observable<boolean>;
 
   constructor(
-    private _authService: AuthService,
+    private authService: AuthService,
     private store: Store<fromRoot.State>,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    this._authService.autoAuthUser();
+    this.authService.autoAuthUser();
     this.matIconRegistry.addSvgIcon(
       `logo`,
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/images/logo.svg")
@@ -30,5 +30,9 @@ export class LayoutComponent implements OnInit{
 
   ngOnInit() {
     this.isAuthenticated$ = this.store.select(fromRoot.getIsAuthenticated);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
