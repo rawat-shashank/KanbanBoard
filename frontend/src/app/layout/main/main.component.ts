@@ -8,7 +8,6 @@ import { ErrorService } from '../error/error.service';
 })
 
 export class MainComponent {
-  isLoggedIn = false;
 
   constructor(
     private _errorService: ErrorService

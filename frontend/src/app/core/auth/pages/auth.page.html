@@ -2,13 +2,12 @@
 <mat-card>
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
         <mat-button-toggle 
-            value="bold"
-            checked="true"
             [routerLink]="['/auth/login']"
+            [checked]="this.routerUrl === '/auth/login'"
         >Login</mat-button-toggle>
         <mat-button-toggle
-            value="italic"
             [routerLink]="['/auth/register']"
+            [checked]="this.routerUrl === '/auth/register'"
         >Register</mat-button-toggle>
     </mat-button-toggle-group>
     <router-outlet></router-outlet>

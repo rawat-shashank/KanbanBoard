@@ -8,7 +8,7 @@ import { RouterModule } from "@angular/router";
         path: "",
         loadChildren: () => import("./auth/auth.module").then(m => m.AuthModule)
       },
-      { path: "", redirectTo: "login", pathMatch: "full" }
+      { path: "**", redirectTo: "login" }
     ])
   ],
   declarations: [],

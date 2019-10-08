@@ -1,4 +1,4 @@
-<main *ngIf="isLoggedIn; else auth">
+<main>
     <mat-card>
         <router-outlet></router-outlet>
     </mat-card>
@@ -6,7 +6,3 @@
 
 <!-- <button mat-button (click)="openSnackBar('Party', 'warn')">Show snack-bar</button> -->
 <app-error></app-error>
-
-<ng-template #auth>
-    <router-outlet></router-outlet>
-</ng-template>

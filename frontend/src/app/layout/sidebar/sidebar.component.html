@@ -1,4 +1,4 @@
-<div [class.theme-alternate]="otherTheme">
+<div [class.theme-alternate]="otherTheme" *ngIf="(isAuthenticated$ | async); else auth">
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" attr.role="navigation" mode="push">
       <mat-toolbar>Menu</mat-toolbar>
@@ -15,7 +15,7 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <mat-toolbar color="primary">
+      <mat-toolbar color="secondry">
         <button
           type="button"
           aria-label="Toggle sidenav"
@@ -24,7 +24,12 @@
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <span class="spacer">KanbanBoard</span>
+        <span class="spacer">
+          <!-- KanbanBoard -->
+          <button mat-button color="secondry">
+            <img src="../../../assets/images/logo.png" alt="KanbanBoard" class="logo" routerLink="/board">
+          </button>
+        </span>
         <button mat-icon-button (click)="otherTheme=!otherTheme">
           <mat-icon class="nav-icons">format_color_fill</mat-icon>
         </button>
@@ -33,3 +38,9 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
+
+<ng-template #auth>
+  <div class="auth-bg" [class.theme-alternate]="otherTheme">
+    <router-outlet></router-outlet>
+  </div>
+</ng-template>

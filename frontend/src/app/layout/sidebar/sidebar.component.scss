@@ -14,6 +14,18 @@
   flex: 1 1 auto;
 }
 
+.logo {
+  max-height: 50px;
+}
+
 .nav-icons {
   padding: 0 14px;
+}
+
+.auth-bg {
+  height: 100%;
+  background: #c1bdba;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

@@ -6,6 +6,9 @@ import { AppMaterialModule } from './app-material.module';
 import { FeatureModule } from './features/feature.module';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { reducers } from './app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment.prod';
 
 import {
   LayoutComponent,
@@ -14,7 +17,6 @@ import {
   ErrorComponent
 }
 from './layout';
-import { appReducer } from './app.reducer';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,11 @@ import { appReducer } from './app.reducer';
     AppRoutingModule,
     FeatureModule,
     AppMaterialModule,
-    StoreModule.forRoot({ui: appReducer})
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
   providers: [],
   bootstrap: [LayoutComponent]
