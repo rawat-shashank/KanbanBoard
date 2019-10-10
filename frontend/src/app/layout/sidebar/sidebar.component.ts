@@ -12,7 +12,7 @@ import { DomSanitizer } from "@angular/platform-browser";
   styleUrls: ["./sidebar.component.scss"]
 })
 export class LayoutComponent implements OnInit{
-  otherTheme: boolean = true;
+  otherTheme: boolean = false;
   isAuthenticated$: Observable<boolean>;
 
   constructor(

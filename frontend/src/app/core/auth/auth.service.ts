@@ -92,8 +92,10 @@ export class AuthService {
   }
 
   autoAuthUser() {
+    this.store.dispatch(new UI.StartLoading());
     const authInformation = this.getAuthData();
     if (!authInformation) {
+      this.store.dispatch(new UI.StopLoading());
       return;
     }
     const now = new Date();
@@ -105,6 +107,7 @@ export class AuthService {
       this.store.dispatch(new Auth.SetAuthenticated());
       this.router.navigate(["/board"]);
     }
+    this.store.dispatch(new UI.StopLoading());
   }
 
   private setAuthTimer(duration: number) {

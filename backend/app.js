@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./config/database');
 const userRoutes = require('./routes/users');
+const taskRoutes = require('./routes/tasks');
 
 // DB connection test
 db.authenticate()
@@ -22,5 +23,6 @@ app.use( (req, res, next) => {
 
 // Express routes
 app.use("/user",userRoutes);
+app.use("/tasks",taskRoutes);
 
 module.exports = app;

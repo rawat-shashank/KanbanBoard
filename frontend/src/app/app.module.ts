@@ -17,6 +17,7 @@ import {
   ErrorComponent
 }
 from './layout';
+import { AuthInterceptor } from './shared/intercepter/auth-intercepter';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,13 @@ from './layout';
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [LayoutComponent]
 })
 export class AppModule { }

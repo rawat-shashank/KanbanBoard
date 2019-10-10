@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { BoardService } from '../board.service';
 
 @Component({
   selector: 'app-board-page',
@@ -9,7 +10,8 @@ import { Component, Input } from '@angular/core';
 export class BoardPageComponent {
 
   constructor(
+    private boardService: BoardService
     ){
-
+      this.boardService.getAllTasks();
   }
 }

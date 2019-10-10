@@ -11,6 +11,8 @@ import { MatCardModule } from "@angular/material/card";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatCardModule,
     DragDropModule,
     MatDialogModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatInputModule,
@@ -41,7 +45,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatCardModule,
     DragDropModule,
     MatDialogModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AppMaterialModule {}

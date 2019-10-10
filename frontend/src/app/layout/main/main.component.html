@@ -1,8 +1,7 @@
 <main>
-    <mat-card>
+    <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
+    <mat-card *ngIf="!(isLoading$ | async)">
         <router-outlet></router-outlet>
     </mat-card>
 </main>
-
-<!-- <button mat-button (click)="openSnackBar('Party', 'warn')">Show snack-bar</button> -->
 <app-error></app-error>

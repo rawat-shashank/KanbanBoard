@@ -25,7 +25,7 @@ export class TaskListComponent {
     private _errorService: ErrorService,
     private _boardService: BoardService
   ) {
-    this.todo = this._boardService.getTodos();
+    this.todo = this._boardService.getTodo();
     this.inProgress = this._boardService.getInProgress();
     this.done = this._boardService.getDone();
   }

@@ -13,3 +13,10 @@ mat-button-toggle-group {
 mat-button-toggle  {
   width: 50%;
 }
+
+@media only screen and (max-width: 600px) {
+  mat-card {
+    max-width: 300px;
+    padding: 20px;
+  }
+}
