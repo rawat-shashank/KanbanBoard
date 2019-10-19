@@ -11,12 +11,12 @@
   <div
     cdkDropList
     #todoList="cdkDropList"
-    [cdkDropListData]="todo"
+    [cdkDropListData]="todo$ | async"
     [cdkDropListConnectedTo]="[inProgressList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box" *ngFor="let item of todo" cdkDrag>
+    <div class="example-box" *ngFor="let item of (todo$ | async)" cdkDrag>
       <app-task [setTaskData]="item"></app-task>
     </div>
   </div>
@@ -25,22 +25,22 @@
 <div class="example-container">
   <h2>
     <span class="list-header">In Progress</span>
-    <span #inProgressFilter>
+    <!-- <span #inProgressFilter>
       <button mat-icon-button (click)="openDialog(inProgressFilter)">
         <mat-icon>add</mat-icon>
       </button>
-    </span>
+    </span> -->
   </h2>
 
   <div
     cdkDropList
     #inProgressList="cdkDropList"
-    [cdkDropListData]="inProgress"
+    [cdkDropListData]="inProgress$ | async"
     [cdkDropListConnectedTo]="[todoList, doneList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box" *ngFor="let item of inProgress" cdkDrag>
+    <div class="example-box" *ngFor="let item of (inProgress$ | async)" cdkDrag>
       <app-task [setTaskData]="item"></app-task>
     </div>
   </div>
@@ -49,22 +49,22 @@
 <div class="example-container">
   <h2>
     <span class="list-header">Done</span>
-    <span #doneFilter>
+    <!-- <span #doneFilter>
       <button mat-icon-button (click)="openDialog(doneFilter)">
         <mat-icon>add</mat-icon>
       </button>
-    </span>
+    </span> -->
   </h2>
 
   <div
     cdkDropList
     #doneList="cdkDropList"
-    [cdkDropListData]="done"
+    [cdkDropListData]="done$ | async"
     [cdkDropListConnectedTo]="[inProgressList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box" *ngFor="let item of done" cdkDrag>
+    <div class="example-box" *ngFor="let item of (done$| async)" cdkDrag>
       <app-task [setTaskData]="item"></app-task>
     </div>
   </div>

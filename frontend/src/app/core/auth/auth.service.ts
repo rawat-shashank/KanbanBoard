@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import * as fromRoot from '../../app.reducer';
 import * as UI from '../../shared/ui.actions';
-import * as Auth from './auth.actions';
+import * as Auth from './store/auth.actions';
 
 @Injectable({
   providedIn: "root"
@@ -85,6 +85,7 @@ export class AuthService {
   logout() {
     this.token = null;
     this.store.dispatch(new Auth.SetUnauthentcated())
+    this.store.dispatch(new fromRoot.Logout());
     this.userId = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthData();

@@ -1,65 +1,53 @@
 import { Injectable } from "@angular/core";
-import { TaskList, Task } from "./board.model";
+import { TaskList, Task, TaskType } from "./board.model";
 import { HttpClient } from "@angular/common/http";
-import * as fromRoot from 'src/app/app.reducer';
-import * as UI from 'src/app/shared/ui.actions';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import * as fromBoard from "./stores/board.reducer";
+import * as UI from "src/app/shared/ui.actions";
+import * as Board from "./stores/board.actions";
+import { Store } from "@ngrx/store";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
 })
 export class BoardService {
-
-  constructor (private _http: HttpClient, private store: Store<{ ui: fromRoot.State }>) {
-
-  }
-  todo: TaskList = [
-    // { title: "Get Up", description: "Need to wake up early" },
-    // { title: "Have Breakfast", description: "Need to eat early" }
-  ];
-
-  inProgress: TaskList = [
-    { title: "Get Up", description: "Need to wake up early" },
-    { title: "Have Breakfast", description: "Need to eat early" }
-  ];
-
-  done: TaskList = [
-    { title: "Get Up", description: "Need to wake up early" },
-    { title: "Have Breakfast", description: "Need to eat early" }
-  ];
+  constructor(
+    private _http: HttpClient,
+    private store: Store<{ ui: fromBoard.State }>
+  ) {}
 
   getAllTasks() {
     this.store.dispatch(new UI.StartLoading());
-    this._http.get("api/tasks/getUserAllTasks")
+    this._http
+      .get("api/tasks/getUserAllTasks")
       .pipe(
-        map(
-          (res: TaskList) => {
+        map((res: TaskList) => {
+          return res.map(task => {
             return {
-              tasks: res.map((task) => {
-                return {
-                  title: task.title,
-                  description: task.description
-                };
-              })
+              title: task.title,
+              description: task.description,
+              type: task.type
             };
-          }
-        )
+          });
+        })
       )
-      .subscribe((postData) => {
-        this.todo = postData.tasks;
+      .subscribe(postData => {
+        postData.forEach(element => {
+          switch (element.type) {
+            case TaskType.todo:
+              this.store.dispatch(new Board.SetTodo(element));
+              break;
+            case TaskType.inProgress:
+              this.store.dispatch(new Board.SetInprogress(element));
+              break;
+            case TaskType.done:
+              this.store.dispatch(new Board.SetDone(element));
+              break;
+            default:
+              break;
+          }
+        });
       });
     this.store.dispatch(new UI.StopLoading());
-  }
-
-  getTodo(): TaskList {
-    return this.todo;
-  }
-  
-  getInProgress(): TaskList {
-    return this.inProgress;
-  }
-  getDone(): TaskList {
-    return this.done;
   }
 }

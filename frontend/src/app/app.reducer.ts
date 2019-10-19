@@ -4,7 +4,7 @@ import {
   createSelector
 } from "@ngrx/store";
 import * as fromUi from "./shared/ui.reducer";
-import * as fromAuth from "./core/auth/auth.reducer";
+import * as fromAuth from "src/app/core/auth/store/auth.reducer";
 
 export interface State {
   ui: fromUi.State;
@@ -26,3 +26,21 @@ export const getIsAuthenticated = createSelector(
   getAuthState,
   fromAuth.getIsAuthenticated
 );
+
+export class ActionTypes {
+  static LOGOUT = "[App] logout";
+}
+
+export class Logout implements Action {
+  readonly type = ActionTypes.LOGOUT;
+}
+
+export function clearState(reducer) {
+  return function(state, action) {
+    if (action.type === ActionTypes.LOGOUT) {
+      state = undefined;
+    }
+
+    return reducer(state, action);
+  };
+}

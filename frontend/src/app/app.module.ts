@@ -6,12 +6,13 @@ import { AppMaterialModule } from './app-material.module';
 import { FeatureModule } from './features/feature.module';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { reducers } from './app.reducer';
+import { reducers, clearState } from './app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment.prod';
 
 import {
   LayoutComponent,
+  HeaderComponent,
   MainComponent,
   FooterComponent,
   ErrorComponent
@@ -22,6 +23,7 @@ import { AuthInterceptor } from './shared/intercepter/auth-intercepter';
 @NgModule({
   declarations: [
     LayoutComponent,
+    HeaderComponent,
     MainComponent,
     FooterComponent,
     ErrorComponent
@@ -33,7 +35,7 @@ import { AuthInterceptor } from './shared/intercepter/auth-intercepter';
     AppRoutingModule,
     FeatureModule,
     AppMaterialModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, { metaReducers: [clearState] }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

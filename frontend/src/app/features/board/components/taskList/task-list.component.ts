@@ -8,7 +8,10 @@ import { MatDialog } from "@angular/material";
 import { AddTaskDialogComponent } from "../add-task-dialog/add-task-dialog.component";
 import { TaskList, Task } from "../../board.model";
 import { ErrorService } from "src/app/layout/error/error.service";
-import { BoardService } from '../../board.service';
+import { Store } from "@ngrx/store";
+import * as Board from '../../stores/board.actions';
+import * as fromBoard from '../../stores/board.reducer';
+import { Observable, from } from 'rxjs';
 
 @Component({
   selector: "app-task-list",
@@ -16,18 +19,18 @@ import { BoardService } from '../../board.service';
   styleUrls: ["task-list.component.scss"]
 })
 export class TaskListComponent {
-  todo: TaskList;
-  inProgress: TaskList;
-  done: TaskList;
+  todo$: Observable<TaskList>;
+  inProgress$: Observable<TaskList>;
+  done$: Observable<TaskList>;
 
   constructor(
     private dialog: MatDialog,
     private _errorService: ErrorService,
-    private _boardService: BoardService
+    private store: Store<{ board: fromBoard.State }>
   ) {
-    this.todo = this._boardService.getTodo();
-    this.inProgress = this._boardService.getInProgress();
-    this.done = this._boardService.getDone();
+    this.todo$ = this.store.select(fromBoard.getTodo);
+    this.inProgress$ = this.store.select(fromBoard.getInProgress);
+    this.done$ = this.store.select(fromBoard.getDone);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -72,7 +75,7 @@ export class TaskListComponent {
         this._errorService.setNewError("Description required", "warn");
         return;
       }
-      this.todo.push(result);
+      this.store.dispatch(new Board.SetTodo(result));
     });
   }
 }

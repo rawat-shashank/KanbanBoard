@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BoardService } from '../board.service';
 
 @Component({
@@ -7,11 +7,11 @@ import { BoardService } from '../board.service';
   styleUrls: ['./board.page.scss']
 })
 
-export class BoardPageComponent {
+export class BoardPageComponent implements OnInit {
 
-  constructor(
-    private boardService: BoardService
-    ){
-      this.boardService.getAllTasks();
+  constructor(private boardService: BoardService){}
+
+  ngOnInit(){
+    this.boardService.getAllTasks();
   }
 }

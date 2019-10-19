@@ -3,11 +3,11 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 exports.getAllUsers = (req, res, next) => {
-  User.findAll()
+  User.findAll({
+    raw: true
+  })
     .then(users => {
-      res.status(201).json({
-        result: result
-      });
+      res.status(201).send(users);
     })
     .catch(err => {
       res.status(404).json({
@@ -33,9 +33,9 @@ exports.createUser = (req, res, next) => {
         email: req.body.email,
         password: hash
       };
-  
+
       const { email, password } = user;
-  
+
       // Insert into table
       User.create({
         email,
@@ -52,7 +52,7 @@ exports.createUser = (req, res, next) => {
           });
         });
     });
-  })
+  });
 };
 
 exports.userLogin = (req, res, next) => {
