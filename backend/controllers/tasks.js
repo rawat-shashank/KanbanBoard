@@ -25,7 +25,8 @@ exports.createTask = (req, res, next) => {
     title: req.body.title,
     description: req.body.description,
     type: req.body.type,
-    userId: req.userData.userId
+    userId: req.userData.userId,
+    priority: req.userData.priority
   }).then(task => {
     if (task) {
       res.send(task);
@@ -40,7 +41,8 @@ exports.updateTask = (req, res, next) => {
     {
       title: req.body.title,
       description: req.body.description,
-      type: req.body.type
+      type: req.body.type,
+      priority: req.body.priority
     },
     {
       limit: 1,

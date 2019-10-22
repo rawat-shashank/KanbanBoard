@@ -11,7 +11,8 @@ const Task = db.define("tasks", {
   },
   type: {
     type: Sequelize.ENUM,
-    values: ['todo', 'inProgress', 'done']
+    values: ['todo', 'inProgress', 'done'],
+    defaultValue: 'todo'
   },
   userId: {
     type: Sequelize.INTEGER,
@@ -19,6 +20,11 @@ const Task = db.define("tasks", {
       model: "users",
       key: "id"
     }
+  },
+  priority: {
+    type: Sequelize.ENUM,
+    values: ['high', 'medium', 'low'],
+    defaultValue: 'low'
   }
 });
 

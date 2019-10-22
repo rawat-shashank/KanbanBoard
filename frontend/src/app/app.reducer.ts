@@ -1,7 +1,8 @@
 import {
   ActionReducerMap,
   createFeatureSelector,
-  createSelector
+  createSelector,
+  Action
 } from "@ngrx/store";
 import * as fromUi from "./shared/ui.reducer";
 import * as fromAuth from "src/app/core/auth/store/auth.reducer";

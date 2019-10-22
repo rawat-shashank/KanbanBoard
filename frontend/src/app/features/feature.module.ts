@@ -8,7 +8,7 @@ import { RouterModule } from "@angular/router";
         path: "",
         loadChildren: () =>
           import("./board/board.module").then(m => m.BoardModule)
-      },
+      }
     ])
   ],
   declarations: [],

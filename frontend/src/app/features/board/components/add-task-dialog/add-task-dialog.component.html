@@ -1,15 +1,42 @@
-<h1 mat-dialog-title>Add Task</h1>
+<h1 mat-dialog-title>{{ filterData.type }} Task</h1>
 <div mat-dialog-content>
   <!-- <p>Add Task</p> -->
   <mat-form-field>
-    <input matInput [(ngModel)]="data.task.title" placeholder="Title">
+    <input matInput [(ngModel)]="filterData.task.title" placeholder="Title" />
   </mat-form-field>
   <mat-form-field>
-      <textarea matInput [(ngModel)]="data.task.description" placeholder="Description"></textarea>
-      <!-- <input matInput [(ngModel)]="data.hero"> -->
+    <textarea
+      matInput
+      [(ngModel)]="filterData.task.description"
+      placeholder="Description"
+    ></textarea>
+    <!-- <input matInput [(ngModel)]="data.hero"> -->
+  </mat-form-field>
+  <ng-template [ngIf]="filterData.type === 'Update'">
+    <mat-form-field>
+      <mat-label>Priority</mat-label>
+      <mat-select [(ngModel)]="filterData.task.priority" name="Priority">
+        <mat-option
+          *ngFor="let priority of priorities"
+          [value]="priority.value"
+        >
+          {{ priority.selector }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="filterData.task.type" name="Status">
+        <mat-option *ngFor="let status of types" [value]="status.value">
+          {{ status.selector }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-template>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.task" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="filterData.task" cdkFocusInitial>
+    Ok
+  </button>
 </div>

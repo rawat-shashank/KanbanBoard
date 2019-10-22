@@ -6,12 +6,12 @@ import {
 } from "@angular/cdk/drag-drop";
 import { MatDialog } from "@angular/material";
 import { AddTaskDialogComponent } from "../add-task-dialog/add-task-dialog.component";
-import { TaskList, Task } from "../../board.model";
+import { TaskList, Task, TaskType, TaskPriority } from "../../board.model";
 import { ErrorService } from "src/app/layout/error/error.service";
 import { Store } from "@ngrx/store";
-import * as Board from '../../stores/board.actions';
-import * as fromBoard from '../../stores/board.reducer';
-import { Observable, from } from 'rxjs';
+import * as fromBoard from "../../stores/board.reducer";
+import { Observable } from "rxjs";
+import { BoardService } from "../../board.service";
 
 @Component({
   selector: "app-task-list",
@@ -26,6 +26,7 @@ export class TaskListComponent {
   constructor(
     private dialog: MatDialog,
     private _errorService: ErrorService,
+    private boardService: BoardService,
     private store: Store<{ board: fromBoard.State }>
   ) {
     this.todo$ = this.store.select(fromBoard.getTodo);
@@ -41,6 +42,22 @@ export class TaskListComponent {
         event.currentIndex
       );
     } else {
+      switch (event.container.id) {
+        case "todo":
+          event.item.data.type=TaskType.todo;
+          
+          break;
+        case "inProgress":
+          event.item.data.type=TaskType.inProgress;
+          break;
+        case "done":
+          event.item.data.type=TaskType.done;
+          break;
+
+        default:
+          break;
+      }
+      this.boardService.updateTodo(event.item.data);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -50,32 +67,60 @@ export class TaskListComponent {
     }
   }
 
-  openDialog(event): void {
-    const filterData = {
-      task: {}
+  onTaskUpdate(task: Task) {
+    this.openDialog(task, "Update");
+  }
+
+  openDialog(event = null, type = "New"): void {
+    let newTask = {
+      type: type,
+      task: {
+        title: "",
+        description: "",
+        type: TaskType.todo,
+        priority: TaskPriority.low
+      }
     };
+    if (event) {
+      newTask["task"] = event;
+    }
     this.dialog.closeAll();
     let dialogRef = this.dialog.open(AddTaskDialogComponent, {
       width: "350px",
-      data: filterData,
+      data: JSON.parse(JSON.stringify(newTask)),
       hasBackdrop: true,
-      panelClass: "filter-popup"
+      panelClass: "theme-alternate"
     });
 
-    dialogRef.afterClosed().subscribe((result: Task) => {
-      if (!result) {
+    dialogRef.afterClosed().subscribe((task: Task) => {
+      if (task === newTask.task) {
+        this._errorService.setNewError("No Changes", "Warn");
+      }
+      if (!task) {
         return;
       }
-      if (!result.title) {
-        this._errorService.setNewError("Title required", "warn");
+      if (!task.title) {
+        this._errorService.setNewError("Title required", "Warn");
         return;
       }
 
-      if (!result.description) {
-        this._errorService.setNewError("Description required", "warn");
+      if (!task.description) {
+        this._errorService.setNewError("Description required", "Warn");
         return;
       }
-      this.store.dispatch(new Board.SetTodo(result));
+
+      switch (newTask.type) {
+        case "New":
+          this.boardService.createTodo(task);
+          break;
+
+        case "Update":
+          this.boardService.updateTodo(task);
+          break;
+
+        default:
+          break;
+      }
     });
   }
 }

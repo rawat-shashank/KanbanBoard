@@ -2,7 +2,7 @@
   <h2>
     <span class="list-header">To do</span>
     <span #todoFilter>
-      <button mat-icon-button (click)="openDialog(todoFilter)">
+      <button mat-icon-button (click)="openDialog()">
         <mat-icon>add</mat-icon>
       </button>
     </span>
@@ -10,14 +10,22 @@
 
   <div
     cdkDropList
-    #todoList="cdkDropList"
+    id="todo"
     [cdkDropListData]="todo$ | async"
-    [cdkDropListConnectedTo]="[inProgressList]"
+    cdkDropListConnectedTo="inProgress"
     class="example-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box" *ngFor="let item of (todo$ | async)" cdkDrag>
-      <app-task [setTaskData]="item"></app-task>
+    <div
+      class="example-box"
+      *ngFor="let item of todo$ | async"
+      cdkDrag
+      [cdkDragData]="item"
+    >
+      <app-task
+        [setTaskData]="item"
+        (updateTask)="onTaskUpdate($event)"
+      ></app-task>
     </div>
   </div>
 </div>
@@ -25,23 +33,26 @@
 <div class="example-container">
   <h2>
     <span class="list-header">In Progress</span>
-    <!-- <span #inProgressFilter>
-      <button mat-icon-button (click)="openDialog(inProgressFilter)">
-        <mat-icon>add</mat-icon>
-      </button>
-    </span> -->
   </h2>
 
   <div
     cdkDropList
-    #inProgressList="cdkDropList"
+    id="inProgress"
+    cdkDropListConnectedTo="todo, done"
     [cdkDropListData]="inProgress$ | async"
-    [cdkDropListConnectedTo]="[todoList, doneList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box" *ngFor="let item of (inProgress$ | async)" cdkDrag>
-      <app-task [setTaskData]="item"></app-task>
+    <div
+      class="example-box"
+      *ngFor="let item of inProgress$ | async"
+      cdkDrag
+      [cdkDragData]="item"
+    >
+      <app-task
+        [setTaskData]="item"
+        (updateTask)="onTaskUpdate($event)"
+      ></app-task>
     </div>
   </div>
 </div>
@@ -49,23 +60,26 @@
 <div class="example-container">
   <h2>
     <span class="list-header">Done</span>
-    <!-- <span #doneFilter>
-      <button mat-icon-button (click)="openDialog(doneFilter)">
-        <mat-icon>add</mat-icon>
-      </button>
-    </span> -->
   </h2>
 
   <div
     cdkDropList
-    #doneList="cdkDropList"
+    id="done"
     [cdkDropListData]="done$ | async"
-    [cdkDropListConnectedTo]="[inProgressList]"
+    cdkDropListConnectedTo="inProgress"
     class="example-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box" *ngFor="let item of (done$| async)" cdkDrag>
-      <app-task [setTaskData]="item"></app-task>
+    <div
+      class="example-box"
+      *ngFor="let item of done$ | async"
+      cdkDrag
+      [cdkDragData]="item"
+    >
+      <app-task
+        [setTaskData]="item"
+        (updateTask)="onTaskUpdate($event)"
+      ></app-task>
     </div>
   </div>
 </div>

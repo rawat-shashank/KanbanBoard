@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { TaskList, Task, TaskType } from "./board.model";
+import { TaskList, Task } from "./board.model";
 import { HttpClient } from "@angular/common/http";
 import * as fromBoard from "./stores/board.reducer";
 import * as UI from "src/app/shared/ui.actions";
@@ -24,29 +24,62 @@ export class BoardService {
         map((res: TaskList) => {
           return res.map(task => {
             return {
+              id: task.id,
               title: task.title,
               description: task.description,
-              type: task.type
+              type: task.type,
+              priority: task.priority
             };
           });
         })
       )
       .subscribe(postData => {
-        postData.forEach(element => {
-          switch (element.type) {
-            case TaskType.todo:
-              this.store.dispatch(new Board.SetTodo(element));
-              break;
-            case TaskType.inProgress:
-              this.store.dispatch(new Board.SetInprogress(element));
-              break;
-            case TaskType.done:
-              this.store.dispatch(new Board.SetDone(element));
-              break;
-            default:
-              break;
-          }
-        });
+        this.store.dispatch(new Board.SetTasks(postData));
+      });
+    this.store.dispatch(new UI.StopLoading());
+  }
+
+  createTodo(todo: Task) {
+    this.store.dispatch(new UI.StartLoading());
+    this._http
+      .post("api/tasks/createUserTask", todo)
+      .pipe(
+        map((task: Task) => {
+          return {
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            type: task.type,
+            priority: task.priority
+          };
+        })
+      )
+      .subscribe(task => {
+        this.store.dispatch(new Board.AddTodo(task));
+      });
+    this.store.dispatch(new UI.StopLoading());
+  }
+
+  updateTodo(todo: Task) {
+    if (!todo.id) {
+      return;
+    }
+    this.store.dispatch(new UI.StartLoading());
+    this._http
+      .post("api/tasks/updateUserTask", todo)
+      .pipe(
+        map((task: Task) => {
+          return {
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            type: task.type,
+            priority: task.priority
+          };
+        })
+      )
+      .subscribe(task => {
+        this.store.dispatch(new Board.UpdateTask(task));
       });
     this.store.dispatch(new UI.StopLoading());
   }
