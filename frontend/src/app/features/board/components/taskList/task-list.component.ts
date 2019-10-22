@@ -44,14 +44,13 @@ export class TaskListComponent {
     } else {
       switch (event.container.id) {
         case "todo":
-          event.item.data.type=TaskType.todo;
-          
+          event.item.data.type = TaskType.todo;
           break;
         case "inProgress":
-          event.item.data.type=TaskType.inProgress;
+          event.item.data.type = TaskType.inProgress;
           break;
         case "done":
-          event.item.data.type=TaskType.done;
+          event.item.data.type = TaskType.done;
           break;
 
         default:

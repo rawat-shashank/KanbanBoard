@@ -38,7 +38,7 @@
   <div
     cdkDropList
     id="inProgress"
-    cdkDropListConnectedTo="todo, done"
+    [cdkDropListConnectedTo]="['todo', 'done']"
     [cdkDropListData]="inProgress$ | async"
     class="example-list"
     (cdkDropListDropped)="drop($event)"
