@@ -20,4 +20,4 @@ export class UpdateTask implements Action {
   constructor(public payload: Task) {}
 }
 
-export type BoardActions = SetTasks | AddTask | UpdateTask;
+export type BoardActions = SetTasks | AddTodo | UpdateTask;
